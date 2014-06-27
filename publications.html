@@ -1,0 +1,17 @@
+---
+layout: page
+title:  Publications
+---
+
+<h3>Publications</h3>
+
+<em>Authors that contributed equally are boxed</em>
+
+{% for pub in site.data.publications %}
+  <p><em>{{pub.Title}}</em> {{pub.Description}} [{{pub.Citation}}]
+  <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{pub.PMID}}">Pubmed</a>
+  {% if pub.PMCID != "" %}
+    <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/{{pub.PMCID}}/?report=classic">PubmedCentral</a>
+  {% endif %}
+  </p>
+{% endfor %}

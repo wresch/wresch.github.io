@@ -1,0 +1,23 @@
+---
+title:  Wolfgang Resch
+layout: page
+---
+
+<table class="archive">
+{% for post in site.posts %}
+  {% unless post.next %}
+    <tr class="archive-tr-year"><th colspan="2">{{ post.date | date: '%Y' }}</th></tr>
+  {% else %}
+    {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+    {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+    {% if year != nyear %}
+      <tr class="archive-tr-year"><th colspan="2">{{ post.date | date: '%Y' }}</th></tr>
+    {% endif %}
+  {% endunless %}
+  <tr>
+    <td class="archive-td-date">{{post.date | date: "%b %-d"}}</td>
+    <td class="archive-td-dash">&mdash;</td>
+    <td class="archive-td-title"><a href="{{post.url}}">{{post.title}}</a></td>
+  </tr>
+{% endfor %}
+</table>

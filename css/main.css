@@ -1,0 +1,154 @@
+body {
+    max-width: 800px;
+    min-width: 300px;
+    margin: 0 auto;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
+}
+
+article {
+    text-align: left;
+    padding: 5px 0;
+    margin: 0 0 5px 0;
+    border-bottom: 1px solid #444;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6em;
+}
+
+
+a {
+    color: #222;
+    text-decoration: underline; 
+}
+
+
+.site-hdr {
+    font-family: "Inconsolata", "Lucida Console", Monaco, monospace;
+    margin-top: 10px;
+}
+
+.site-hdr a {
+    text-decoration: none;
+}
+
+.site-hdr h1 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+nav {
+    padding: 4px 0;
+    margin: 0;
+    text-align: center;
+    vertical-align: center;
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
+}
+
+nav a {
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 3px;
+    margin: 3px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+
+.article-hdr {
+    text-align: center
+}
+
+.article-hdr h1 {
+    font-weight: normal;
+    font-size: 24px;
+}
+
+.date {
+    text-transform: uppercase;
+}
+
+hr.light {
+    border-top: 1px dotted #444;
+    border-bottom: 1px dotted #fff;
+    max-width: 400px;
+    min-width: 150px;
+    height: 0px;
+    background-color: transparent;
+}
+
+
+
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+thead {
+    border-bottom: 1px solid #bfbfbf;
+    padding-bottom: 0.2em;
+}
+
+td, th {
+  text-align: right;
+  padding: 0 1em;
+}
+
+.tr-hl {
+    background-color: #fffeaa;
+}
+
+table.archive {
+    table-layout: fixed;
+}
+
+.archive-tr-year {
+    font-weight: normal;
+    font-size: 24px;
+    border-bottom: 1px dotted #444;
+}
+
+.archive-tr-year th {
+    text-align: left;
+    padding: 15px 0 3px 0;
+}
+
+td a {
+    text-decoration: none;
+}
+
+table.archive {
+    margin: 15px auto;
+}
+
+.archive-td-date {
+    width: 80px;
+    padding: 0;
+    vertical-align: top;
+}
+
+.archive-td-dash {
+    padding: 0 0.3em;
+    vertical-align: top;
+    text-align: center;
+}
+
+.archive-td-title {
+    padding: 0;
+    text-align: left;
+    vertical-align: top;
+}
+
+.cofirst {
+    border: 1px solid #444;
+}
