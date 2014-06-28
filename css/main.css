@@ -25,6 +25,10 @@ a {
     text-decoration: underline; 
 }
 
+span.disabled {
+    color: #ddd;
+}
+
 figure  {
     display: block;
     text-align: center;
@@ -44,6 +48,8 @@ figcaption {
 .site-hdr a {
     text-decoration: none;
 }
+
+
 
 .site-hdr h1 {
     text-align: center;
@@ -96,6 +102,13 @@ hr.light {
     background-color: transparent;
 }
 
+footer {
+    text-align: center;
+}
+
+footer a {
+    text-decoration: none;
+}
 
 
 

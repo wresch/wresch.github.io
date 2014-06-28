@@ -23,6 +23,7 @@
   </head>
 
 <body>
+  <a id="page-top"></a>
   {% include header.html %}
   <article>
     <header class="article-hdr">
@@ -33,6 +34,17 @@
     {{ content }}
   </article>
   <footer>
+    {% if page.next.url %} 
+      <a href="{{page.next.url}}">&laquo; Newer post</a>
+    {% else %}
+      <span class="disabled" href="">&laquo; Newer post</span>
+    {% endif %}
+       | <a href="#page-top">top</a> | 
+    {% if page.previous.url %} 
+      <a href="{{page.previous.url}}">Older post &raquo;</a>
+    {% else %}
+      <span class="disabled" href="">Older post &raquo;</span>
+    {% endif %} 
   </footer>
 
 
