@@ -26,7 +26,7 @@ faster alternative is to use the samtools library.  The following
 short program is also a template on how to use the high level samtools
 API for the task of looping through all alignments in a bam file:
 
-```c
+```cpp
 #include <stdio.h>
 #include "sam.h"
  
