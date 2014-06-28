@@ -5,3 +5,6 @@ markdown: redcarpet
 pygments: true
 redcarpet:
   extenstions: ["tables", "disable_indented_code_blocks"]
+
+gems:
+  - jekyll-sitemap
