@@ -44,8 +44,7 @@ plot(p2, vp = subplot(2,1))
 Any of the more advanced grid viewport magic can be used as well.  For
 example [inset
 plots)[http://learnr.wordpress.com/2009/05/08/ggplot2-plot-inside-a-plot/].
-ggplot2 now also provides ways to add [plot
-annotations](https://github.com/hadley/ggplot2/wiki/Mixing-ggplot2-graphs-with-other-graphical-output)
+ggplot2 now also provides ways to add [plot annotations](https://github.com/hadley/ggplot2/wiki/Mixing-ggplot2-graphs-with-other-graphical-output)
 itself.
 
 ###Update

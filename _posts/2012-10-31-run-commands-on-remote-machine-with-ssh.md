@@ -10,7 +10,7 @@ author: Wolfgang Resch
 Running a simple command on a remote machine with ssh is straight forward:
 
 ```bash
-ssh biowulf 'echo $HOSTNAME'
+ssh workhorse 'echo $HOSTNAME'
 ```
 
 However, watch out for shell expansion on the local machine (i.e. use either

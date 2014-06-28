@@ -78,7 +78,7 @@ These functions are then used like this:
 ```bash
 if get_ssh_lock
 then
-    ssh -q biowulf "some command to run on biowulf"
+    ssh -q remote_machine "some command"
     release_ssh_lock
 fi
 ```

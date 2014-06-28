@@ -27,7 +27,7 @@ function cat_file() {
     [[ ! -z "${f}" ]] || log_fatal "cat_file requires 1 argument (compressed or uncompressed file)"
     [[ -f "${fq}" ]]  || log_fatal "fastq file not found: ${fq}"
     # strip the gz if it's there
-    fngz=${f%.gz}
+    local fngz=${f%.gz}
     if [[ -f ${fngz} ]]
     then
         cat ${fngz}

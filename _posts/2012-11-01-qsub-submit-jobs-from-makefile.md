@@ -13,7 +13,7 @@ jobs then would look like this in a makefile:
 ```make
 foo.sam: foo.fq
     echo "bowtie ...... mm9 foo.fq foo.sam" > temp.batch
-    ssh -q cluster_head_node 'cd $(CURDIR) && /usr/local/pbs/bin/qsub -l nodes=1:c16 temp.batch'
+    ssh -q cluster_head_node 'cd $(CURDIR) && qsub -l nodes=1:c16 temp.batch'
 ```
 
 However, this does not actually work since qsub exits immediately
@@ -28,7 +28,7 @@ terminates and then return the jobs exit code:
 ```make
 foo.sam: foo.fq
     echo "bowtie ...... mm9 foo.fq foo.sam" > temp.batch
-    ssh -q cluster_head_node_node_node 'cd $(CURDIR) && /full/path/to/qsub -W block=true -l nodes=1:c16 temp.batch'
+    ssh -q cluster_head_node_node_node 'cd $(CURDIR) && qsub -W block=true -l nodes=1:c16 temp.batch'
 ```
 
 In this case the ssh call to qsub will wait for the complete job to
@@ -43,7 +43,7 @@ sleeping:
 foo.batch: foo.fq
     echo "bowtie .... mm9 foo.fq foo.sam && touch $@.DONE" > $@
 foo.sam: foo.batch
-    ssh -q cluster_head_node 'cd $(CURDIR) && /usr/local/pbs/bin/qsub -l nodes=1:c16 $<'
+    ssh -q cluster_head_node 'cd $(CURDIR) && qsub -l nodes=1:c16 $<'
     while [[ ! -f "$<.DONE" ]]; do sleep 60; done
     rm $<.DONE
 ```
