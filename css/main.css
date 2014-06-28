@@ -25,6 +25,16 @@ a {
     text-decoration: underline; 
 }
 
+figure  {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+figcaption {
+    font-size: 0.7em;
+}
 
 .site-hdr {
     font-family: "Inconsolata", "Lucida Console", Monaco, monospace;
