@@ -70,7 +70,7 @@ p <- ggplot(data.frame(dt=dt.1)) +
 {% endhighlight %}
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig1.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig1.png) 
 <figcaption>
 <b>Figure 1</b>: Distribution of dwell times
 </figcaption>
@@ -104,7 +104,7 @@ dt.1.df <- subset(dt.1.df, mcdf > 0)
 Figure 2 shows that 1 - CDF indeed appearst to be an exponential decay.
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig2.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig2.png) 
 <figcaption>
 <b>Figure 2</b>: 1 - CDF.  Shown in grey dots is the estimate at the original 
 data locations. Shown as a line is evenly spaced data every two time steps.
@@ -168,7 +168,7 @@ However, the diagnostic plots for the linear regression on transformed
 data suggest that some assumptions are being violated (see Figure 3).
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig3.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig3.png) 
 <figcaption>
 <b>Figure 3</b>: Diagnostic plots for the linear regression on transformed
 data
@@ -225,7 +225,7 @@ summary(linm.i)
 Figure 4 shows the diagnostic figures for this fit.
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig4.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig4.png) 
 <figcaption><b>Figure 4</b>: Diagnostic graphs for linear fit to transformed, 
 equally spaced data (linear extrapolation)</figcaption>
 </figure>
@@ -271,7 +271,7 @@ the exponential fit is small. The fit to the linearly interpolated CDF
 data however appears to be less good.
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig5.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig5.png) 
 <figcaption><b>Figure 5</b>: Original data: **grey dots**; linear fit on transformed
 original data: **red line**; linear fit on transformed original data, equally spaced
 by interpolation: **blue line**; direct exponential fit: **green line**. The green
@@ -322,7 +322,7 @@ of 1-CDF of the dwell times
 
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig6.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig6.png) 
 <figcaption>
 <b>Figure 6</b>: Distribution of dwell times for mixed site model: 200 high affinity 
 sites with a mean dwell time of 10s, 1800 low affinity sites with a mean dwell 
@@ -331,7 +331,7 @@ time of 1s.
 </figure>
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig7.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig7.png) 
 <figcaption>
 <b>Figure 7</b>: 1 - CDF of mixed model.
 </figcaption>
@@ -438,7 +438,7 @@ Indeed it is. Figure 8 shows the two fitted models with the data.
 ## Warning: Removed 7 rows containing missing values (geom_path).
 {% endhighlight %}
 
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig8.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig8.png) 
 <figcaption><b>Figure 8</b>: Mixture model with `nls` fit of 2 component model 
 (red) and singe component model (blue).  Since the low affinity sites 
 are in excess, the single component model ends up being a reasonable
@@ -485,7 +485,7 @@ and any estimates are possible at all heavily depend on the starting
 parameter estimates.
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig9.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig9.png) 
 <figcaption><b>Figure 9</b>: Whether l1 is the estimate for the high affinity
 binding site (red) or not (blue) depends on the selection of the initial
 estimates in a mostly predictable way.  Note that there are many combinations of
@@ -500,7 +500,7 @@ time and relatively poor estimate for the high affinity site and it's frequency
 are systematic and not grossly dependent on the initial estimates.
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig10.png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig10.png) 
 <figcaption><b>Figure 10</b>: Deviations of the estimates for mean dwell time of the
 high affinity site (top left), mean dwell time of the low affinity site (top 
 right), and the frequency of high affinity sites (bottom left). In all cases,
@@ -538,7 +538,7 @@ for (i in 1:100) {
 {% endhighlight %}
 
 <figure>
-![center](assets/140719_fitting_exp_decay_models/2014-07-22-fig11 .png) 
+![center](/assets/140719_fitting_exp_decay_models/2014-07-22-fig11 .png) 
 <figcaption><b>Figure 11</b>:  Point estimate and confidence interval of the
 dwell time for the high affinity site in 100 simulated data sets.</figcaption>.
 </figure>
