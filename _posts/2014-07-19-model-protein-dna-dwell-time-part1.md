@@ -5,6 +5,12 @@ author: Wolfgang Resch
 output: html_document
 ---
 
+
+
+{% highlight text %}
+## Error: duplicate label 'model-single-site'
+{% endhighlight %}
+
 _Disclaimer_:  In this post i'm working through my own thinking on
 how to think about and model simple dwell times of proteins on their DNA binding 
 sites.  I'm not sure any of this is correct (yet).
@@ -25,7 +31,7 @@ The mean of the negative binomial distribution is
 `\[\mu = \frac{p_{nd}}{1-p_{nd}}\]`.
 
 Therefore, if a protein has a mean dwell time of 10s at a given
-site, the probability of dissociation during any time step `t_i` would be
+site, the probability of dissociation during any time step `\(t_i\)` would be
 
 `\[\begin{aligned}
 \frac{p_{nd}}{1-p_{nd}} &= \frac{10}{0.1} \\
@@ -70,7 +76,7 @@ p <- ggplot(data.frame(dt=dt.1)) +
 {% endhighlight %}
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig1.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig1.png" title="plot of chunk 2014-07-22-fig1" alt="plot of chunk 2014-07-22-fig1" style="display: block; margin: auto;" />
 <figcaption>
 <b>Figure 1</b>: Distribution of dwell times
 </figcaption>
@@ -101,10 +107,10 @@ dt.1.df <- data.frame(t = dt.1.u,
 dt.1.df <- subset(dt.1.df, mcdf > 0)
 {% endhighlight %}
 
-Figure 2 shows that 1 - CDF indeed appearst to be an exponential decay.
+Figure 2 shows that 1 - CDF indeed appears to be an exponential decay.
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig2.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig2.png" title="plot of chunk 2014-07-22-fig2" alt="plot of chunk 2014-07-22-fig2" style="display: block; margin: auto;" />
 <figcaption>
 <b>Figure 2</b>: 1 - CDF.  Shown in grey dots is the estimate at the original 
 data locations. Shown as a line is evenly spaced data every two time steps.
@@ -161,14 +167,14 @@ summary(linm)
 {% endhighlight %}
 
 results in the expected mean dwell time of 
-`\(\tau = \frac{1}{\lambda} =\)` -98.5474 and
+`\(\tau = \frac{1}{\lambda} =\)` 98.5474 and
 an intercept of 1.004.
 
 However, the diagnostic plots for the linear regression on transformed
 data suggest that some assumptions are being violated (see Figure 3).
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig3.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig3.png" title="plot of chunk 2014-07-22-fig3" alt="plot of chunk 2014-07-22-fig3" style="display: block; margin: auto;" />
 <figcaption>
 <b>Figure 3</b>: Diagnostic plots for the linear regression on transformed
 data
@@ -222,10 +228,11 @@ summary(linm.i)
 ## F-statistic: 5.79e+04 on 1 and 817 DF,  p-value: <2e-16
 {% endhighlight %}
 
-Figure 4 shows the diagnostic figures for this fit.
+Figure 4 shows the diagnostic figures for this fit. This certainly didn't 
+help any.
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig4.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig4.png" title="plot of chunk 2014-07-22-fig4" alt="plot of chunk 2014-07-22-fig4" style="display: block; margin: auto;" />
 <figcaption><b>Figure 4</b>: Diagnostic graphs for linear fit to transformed, 
 equally spaced data (linear extrapolation)</figcaption>
 </figure>
@@ -271,7 +278,7 @@ the exponential fit is small. The fit to the linearly interpolated CDF
 data however appears to be less good.
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig5.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig5.png" title="plot of chunk 2014-07-22-fig5" alt="plot of chunk 2014-07-22-fig5" style="display: block; margin: auto;" />
 <figcaption><b>Figure 5</b>: Original data: **grey dots**; linear fit on transformed
 original data: **red line**; linear fit on transformed original data, equally spaced
 by interpolation: **blue line**; direct exponential fit: **green line**. The green
@@ -301,7 +308,6 @@ sim.2.data <- function() {
     n.la <- n.la - n.diss.la
     n.diss.ha <- min(sum(runif(n.ha) <= pd.ha), n.ha)
     n.ha <- n.ha - n.diss.ha
-    n.ha <- n.ha - n.diss.ha
     dt.2 <- c(dt.2, rep(ti, n.diss.la + n.diss.ha) + 
                 round(rnorm(n.diss.la + n.diss.ha, sd=1.5)))
     ti <- ti + 1
@@ -322,7 +328,7 @@ of 1-CDF of the dwell times
 
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig6.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig6.png" title="plot of chunk 2014-07-22-fig6" alt="plot of chunk 2014-07-22-fig6" style="display: block; margin: auto;" />
 <figcaption>
 <b>Figure 6</b>: Distribution of dwell times for mixed site model: 200 high affinity 
 sites with a mean dwell time of 10s, 1800 low affinity sites with a mean dwell 
@@ -331,7 +337,7 @@ time of 1s.
 </figure>
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig7.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig7.png" title="plot of chunk 2014-07-22-fig7" alt="plot of chunk 2014-07-22-fig7" style="display: block; margin: auto;" />
 <figcaption>
 <b>Figure 7</b>: 1 - CDF of mixed model.
 </figcaption>
@@ -365,23 +371,22 @@ summary(expm.2)
 ## 
 ## Parameters:
 ##    Estimate Std. Error t value Pr(>|t|)    
-## l1 0.018771   0.002911    6.45  7.6e-09 ***
-## l2 0.095914   0.000843  113.81  < 2e-16 ***
-## f  0.044873   0.007701    5.83  1.1e-07 ***
+## l1 0.009268   0.000234    39.6   <2e-16 ***
+## l2 0.095546   0.000385   248.0   <2e-16 ***
+## f  0.092851   0.001809    51.3   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.00437 on 81 degrees of freedom
+## Residual standard error: 0.00334 on 143 degrees of freedom
 ## 
-## Number of iterations to convergence: 12 
-## Achieved convergence tolerance: 9.23e-06
+## Number of iterations to convergence: 9 
+## Achieved convergence tolerance: 5.46e-07
 {% endhighlight %}
 
 The estimates of the mean dwell time of the high affinity sites 
-(53.2732), the low affinity site (10.426), and the 
-fraction of sites that are high affinity (0.0449) are in the right 
-ballpark but the estimate for the high affinity site is quite off, as is the
-fraction of sites that are high affinity.
+(107.903), the low affinity site (10.4662), and the 
+fraction of sites that are high affinity (0.0929) are close to
+the values used in the data generating process.
 
 Is the two component model significantly better than a single component model?
 
@@ -400,14 +405,14 @@ summary(expm.2.single)
 ## 
 ## Parameters:
 ##   Estimate Std. Error t value Pr(>|t|)    
-## l 0.088397   0.000548     161   <2e-16 ***
+## l  0.07572    0.00125    60.3   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.0104 on 83 degrees of freedom
+## Residual standard error: 0.0301 on 145 degrees of freedom
 ## 
-## Number of iterations to convergence: 4 
-## Achieved convergence tolerance: 7.93e-06
+## Number of iterations to convergence: 6 
+## Achieved convergence tolerance: 3.8e-06
 {% endhighlight %}
 
 
@@ -423,9 +428,9 @@ anova(expm.2.single, expm.2)
 ## 
 ## Model 1: mcdf ~ exp(-l * t)
 ## Model 2: mcdf ~ f * exp(-l1 * t) + (1 - f) * exp(-l2 * t)
-##   Res.Df Res.Sum Sq Df  Sum Sq F value Pr(>F)    
-## 1     83    0.00902                              
-## 2     81    0.00155  2 0.00747     195 <2e-16 ***
+##   Res.Df Res.Sum Sq Df Sum Sq F value Pr(>F)    
+## 1    145     0.1310                             
+## 2    143     0.0016  2  0.129    5799 <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 {% endhighlight %}
@@ -435,10 +440,10 @@ Indeed it is. Figure 8 shows the two fitted models with the data.
 <figure>
 
 {% highlight text %}
-## Warning: Removed 7 rows containing missing values (geom_path).
+## Warning: Removed 43 rows containing missing values (geom_path).
 {% endhighlight %}
 
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig8.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig8.png" title="plot of chunk 2014-07-22-fig8" alt="plot of chunk 2014-07-22-fig8" style="display: block; margin: auto;" />
 <figcaption><b>Figure 8</b>: Mixture model with `nls` fit of 2 component model 
 (red) and singe component model (blue).  Since the low affinity sites 
 are in excess, the single component model ends up being a reasonable
@@ -485,7 +490,7 @@ and any estimates are possible at all heavily depend on the starting
 parameter estimates.
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig9.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig9.png" title="plot of chunk 2014-07-22-fig9" alt="plot of chunk 2014-07-22-fig9" style="display: block; margin: auto;" />
 <figcaption><b>Figure 9</b>: Whether l1 is the estimate for the high affinity
 binding site (red) or not (blue) depends on the selection of the initial
 estimates in a mostly predictable way.  Note that there are many combinations of
@@ -494,28 +499,27 @@ initial estimates that yield no results due to a failure of `nls` (white).
 </figure>
 
 Figure 10 shows how accurate the fitted values for high affinity mean dwell time,
-low affinity mean dwell time, and fraction of high affinity sites are. It 
-appears that the good estimate for the low affinity binding constant/mean dwell
-time and relatively poor estimate for the high affinity site and it's frequency
-are systematic and not grossly dependent on the initial estimates.
+low affinity mean dwell time, and fraction of high affinity sites are as a function
+of the initial estimates.  It is clear that in this particular data set, the
+bias of the estimates is not dependent on the initial input data.
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig10.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig10.png" title="plot of chunk 2014-07-22-fig10" alt="plot of chunk 2014-07-22-fig10" style="display: block; margin: auto;" />
 <figcaption><b>Figure 10</b>: Deviations of the estimates for mean dwell time of the
 high affinity site (top left), mean dwell time of the low affinity site (top 
 right), and the frequency of high affinity sites (bottom left). In all cases,
 color scale is centered at the real value used in data generation. Red values
-indicate overestimates; blue colors underestimates of dwell time (i.e. under-
-and over-estimate of the respective rate constants.). Note that 
-mean dwell time is the inverse of the rate constant.</figcaption>
+indicate overestimates; blue colors underestimates. In the case of
+mean dwell time, an overestimate of the dwell time means that the rate constant
+was underestimated.</figcaption>
 </figure>
 
 Another question is how good the estimates are for different data sets. So,
 100 data sets are simulated and the estimates along with their confidence
 intervals are plotted.  Initial values are selected based on the previous 
 analyses.  Figure 11 shows that the mean dwell time is consistently
-underestimated (rate constant overestimated), irrespective of 
-data set.
+overestimated (rate constant underestimated), irrespective of 
+data set. Despite the obvious bias, the difference is reatively small.
 
 
 {% highlight r %}
@@ -529,7 +533,7 @@ for (i in 1:100) {
   tmp.df <- subset(tmp.df, mcdf > 0)
   fit <- try(nls(mcdf ~ f * exp(- lha * t) + (1 - f) * exp(-lla * t), 
              data  = tmp.df, 
-             start = list(lha=1/20, lla=1/2, f=0.5)),
+             start = list(lha=1/30, lla=1/3, f=0.5)),
              silent=TRUE)
   if (inherits(fit, "nls")) {
     fit.rep[[i]] <- fit
@@ -538,20 +542,18 @@ for (i in 1:100) {
 {% endhighlight %}
 
 <figure>
-<img src="/assets/140719_fitting_exp_decay_models/2014-07-22-fig11.png">
+<img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig11.png" title="plot of chunk 2014-07-22-fig11" alt="plot of chunk 2014-07-22-fig11" style="display: block; margin: auto;" />
 <figcaption><b>Figure 11</b>:  Point estimate and confidence interval of the
 dwell time for the high affinity site in 100 simulated data sets.</figcaption>.
 </figure>
 
 ## Final thoughts 
 
-* `nls` appears to consistently underestimate the mean dwell time (overestimate 
-off rate) and frequency of the high affinity site in these simulations. In a
-future post I will try to determine why and how to improve the estimate.
+* There appears to be a consistant bias in the estimates.  In a future post
+  i will try to determine where the bias comes from (or if there is a flaw
+  in the simulated data).
 * `nls` defaults to
 the Gauss-Newton algorithm which is less stable with respect to initial estimates than
 Levenberg-Marquardt (LM).  `minpack.lm` provides the LM algorithm. In a future
 post i will compare `nls` to the minpack implementation as well s the `gnm` 
 package, which implements generalized nonlinear models.
-
-
