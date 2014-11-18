@@ -116,8 +116,6 @@ more details.
 #include <stdio.h>
 #include "vcf.h"
 #include "vcfutils.h"
-/* not really doing any error checking here - this needs to
-   be improved badly */
 
 void usage() {
         puts(
