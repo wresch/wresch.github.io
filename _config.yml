@@ -1,7 +1,7 @@
 name:     "Wolfgang Resch - Notes"
 author:   "Wolfgang Resch"
 
-highlighter: pygments
+highlighter: rouge
 
 gems:
   - jekyll-sitemap
