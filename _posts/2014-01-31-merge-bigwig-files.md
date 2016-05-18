@@ -16,43 +16,67 @@ themselves can be merged using UCSC tools:
 
 ```bash
 #! /bin/bash 
-
-# USAGE:
-merge_bw.sh outfile chrom_sizes bigwig1 bigwig2 ...
- 
 set -o pipefail
- 
-function fail {
-    rm -f ${tmp}
+
+function usage {
+    echo "NAME" >&2
+    echo "    merge_bigwig.sh - average bigwig files" >&2
+    echo "SYNOPSIS" >&2
+    echo "    merge_bigwig.sh outfile chrom_sizes bigwig1 bigwig2 [bigwig3 ...]" >&2
+    echo "DESCRIPTION" >&2
+    echo "    Takes multiple bigwig files and creates a single averaged" >&2
+    echo "    bigwig file. Creates an intermediate bedgraph file which" >&2
+    echo "    may be large." >&2
+    echo "        outfile:     name of averaged bigwig file" >&2
+    echo "        chrom_sizes: tab separated file listing sizes of chromosomes" >&2
+    echo "        bigwig:      two or more bigwig files to merge" >&2
     exit 1
 }
  
-module load ucsc || exit 1
-out_bw=$1
+function fail {
+    echo "$@" >&2
+    exit 1
+}
+
+
+out_bw=${1:-none}
 shift
+[[ "${out_bw}" != "none" ]] || usage
  
-mm9=$1
+genome=${1:-none}
 shift
-[[ -e ${mm9} ]] || exit 1
- 
+[[ "${genome}" != "none" ]] || usage
+[[ -f "${genome}" ]] || fail "Could not find '${genome}'"
+
+[[ $# -gt 1 ]] || usage
+
+echo "OUTPUT FILE:  ${out_bw}"
+echo "CHROM SIZES:  ${genome}"
+echo "INPUT FILES:  $#"
+
 for f in "$@"; do
-    [[ -e $f ]] || exit 1
+    [[ -e $f ]] || fail "Could not find '${f}'"
+    echo "    - ${f}"
 done
  
+module load ucsc || fail "Could not load UCSC module"
+
 # calculate factor for normalization
 n=$#
 f=$(echo "1 / $n" | bc -l)
-echo "merging $n bigwig files" >&2
-echo "  norm factor: $f" >&2
+echo "NORM FACTOR: $f" >&2
 
 # merge bigwig files; this creates a bedgraph file which
 # is saved as a temporary file
-tmp=$(mktemp)
-bigWigMerge "$@" stdout | awk -v f=$f 'BEGIN{OFS="\t"}{$4=f*$4; print}' > ${tmp} || fail
+tmp=$(mktemp ./XXXX)
+trap "rm -f ${tmp}" EXIT
+bigWigMerge "$@" stdout \
+    | awk -v f=$f 'BEGIN{OFS="\t"}{$4=f*$4; print}' > ${tmp} \
+    || fail "bigWigMerge failed"
  
 # create new bigwig file from temporary bedgraph file
-bedGraphToBigWig ${tmp} ${mm9} ${out_bw} || fail
-rm ${tmp}
+bedGraphToBigWig ${tmp} ${genome} ${out_bw} || fail "bedGraphToBigWig failed"
 ```
 
-*Note*: this script makes use of the [Environment Module System](http://modules.sourceforge.net/).
+*Note*: this script makes use of the [Environment Module System](https://www.tacc.utexas.edu/research-development/tacc-projects/lmod). 
+You may have to modify the script to work in your environment.
