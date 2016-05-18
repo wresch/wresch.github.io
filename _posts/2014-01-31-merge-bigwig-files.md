@@ -15,7 +15,9 @@ coverage might be very high.  Alternatively, the bigwig files
 themselves can be merged using UCSC tools:
 
 ```bash
-#! /bin/bash # USAGE:
+#! /bin/bash 
+
+# USAGE:
 merge_bw.sh outfile chrom_sizes bigwig1 bigwig2 ...
  
 set -o pipefail
