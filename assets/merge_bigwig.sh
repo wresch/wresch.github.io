@@ -1,23 +1,3 @@
----
-title:  Merging bigwig files
-layout: post
-author: Wolfgang Resch
----
-
-For visualization in the genome browser it's often useful to merge
-(average) several bigwig files, for example to show the average of
-several replicates as a single track in the browser.  This can be done
-by merging bam files and creating a track from the merged bam files.
-In that case, the bam files should probably be sampled so that each
-replicate contributes equally to the final average.  And any
-redundancy filtering may be problematic on the combined bam as
-coverage might be very high.  Alternatively, the bigwig files
-themselves can be merged using UCSC tools using the script
-shown below.
-
-[Download script](/assets/merge_bigwig.sh)
-
-```bash
 #! /bin/bash 
 set -o pipefail
 
@@ -79,7 +59,3 @@ bigWigMerge "$@" stdout \
  
 # create new bigwig file from temporary bedgraph file
 bedGraphToBigWig ${tmp} ${genome} ${out_bw} || fail "bedGraphToBigWig failed"
-```
-
-*Note*: this script makes use of the [Environment Module System](https://www.tacc.utexas.edu/research-development/tacc-projects/lmod). 
-You may have to modify the script to work in your environment.
