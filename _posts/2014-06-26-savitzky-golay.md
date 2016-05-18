@@ -36,7 +36,7 @@ the end points where there are no preceeding/following data points.
 Some example data:
 
 
-{% highlight r %}
+```r
 set.seed(99)
 n <- 100
 x <- (1:n) / n
@@ -47,34 +47,32 @@ df <- data.frame(
     clean = clean.data,
     noisy = clean.data + rnorm(n, 0, 0.12)
 )
-{% endhighlight %}
+```
 
 The filter coefficients (1nd order polynomials, 0th derivative, length 11):
 
 
-{% highlight r %}
+```r
 library(signal)
 sg <- sgolay(p=1, n=13, m=0)
 dim(sg)
-{% endhighlight %}
+```
 
-
-
-{% highlight text %}
+```
 ## [1] 13 13
-{% endhighlight %}
+```
 
 Applied to the data
 
 
-{% highlight r %}
+```r
 df$sg <- filter(sg, df$noisy)
-{% endhighlight %}
+```
 
 Plotting the results
 
 
-{% highlight r %}
+```r
 library(ggplot2)
 p <- ggplot(df) +
     geom_point(aes(x, noisy), size = 2) +
@@ -83,20 +81,20 @@ p <- ggplot(df) +
     ylab("y") +
     theme_bw()
 print(p)
-{% endhighlight %}
+```
 
 <figure>
   <img src="/assets/2014-06-26-fig1.png">
 </figure>
 
 
-{% highlight r %}
+```r
 sessionInfo()
-{% endhighlight %}
+```
 
 
 
-{% highlight text %}
+```
 ## R version 3.1.0 (2014-04-10)
 ## Platform: x86_64-apple-darwin10.8.0 (64-bit)
 ## 
@@ -114,5 +112,5 @@ sessionInfo()
 ##  [5] grid_3.1.0       gtable_0.1.2     labeling_0.2     MASS_7.3-31     
 ##  [9] munsell_0.4.2    plyr_1.8.1       proto_0.3-10     Rcpp_0.11.2     
 ## [13] reshape2_1.4     scales_0.2.4     stringr_0.6.2    tools_3.1.0
-{% endhighlight %}
+```
 
