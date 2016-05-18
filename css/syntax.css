@@ -3,7 +3,7 @@
  * Courtesy of GitHub.com
  */
 
-.highlight pre { background-color: #f8f8f8;
+pre.highlight { background-color: #f8f8f8;
 		 padding: 6px 10px;
 		 border-left: 10px solid #c6c6c6;
 	         overflow: auto; }
