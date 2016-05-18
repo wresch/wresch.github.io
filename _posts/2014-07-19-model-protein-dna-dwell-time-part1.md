@@ -6,11 +6,6 @@ output: html_document
 ---
 
 
-
-{% highlight text %}
-## Error: duplicate label 'model-single-site'
-{% endhighlight %}
-
 _Disclaimer_:  In this post i'm working through my own thinking on
 how to think about and model simple dwell times of proteins on their DNA binding 
 sites.  I'm not sure any of this is correct (yet).
@@ -50,7 +45,7 @@ a total of 2000 bound sites (without actually using the neg. binomial
 distribution). A term for measurement error is introduced as well.
 
 
-{% highlight r %}
+```r
 set.seed(13219)
 dt.1 <- c()
 ti <- 1
@@ -63,17 +58,17 @@ while (n > 0) {
   ti <- ti + 1
 }
 dt.1[dt.1 < 1] <- 1
-{% endhighlight %}
+```
 
 Plotting the distribution of dwell times
 
-{% highlight r %}
+```r
 library(ggplot2)
 p <- ggplot(data.frame(dt=dt.1)) +
   geom_histogram(aes(x=dt), fill="grey70", color="black", binwidth=5) +
   labs(x=expression(paste("Dwell time x", 10^{-1}, "s")), y="n") + 
   theme_bw(16)
-{% endhighlight %}
+```
 
 <figure>
 <img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig1.png" title="plot of chunk 2014-07-22-fig1" alt="plot of chunk 2014-07-22-fig1" style="display: block; margin: auto;" />
@@ -91,21 +86,21 @@ of 0.  The easiest way to do this is essentially calculating an empirical
 CDF function of the dwell times:
 
 
-{% highlight r %}
+```r
 dt.1.cdf <- ecdf(dt.1)
-{% endhighlight %}
+```
 
 Next, we create a `data.frame` that gives unique values of `dt.1` along 
 with `1 - CDF` (unique values only since there are many ties in the
 data).
 
 
-{% highlight r %}
+```r
 dt.1.u <- unique(dt.1)
 dt.1.df <- data.frame(t = dt.1.u,
                       mcdf = 1 - dt.1.cdf(dt.1.u))
 dt.1.df <- subset(dt.1.df, mcdf > 0)
-{% endhighlight %}
+```
 
 Figure 2 shows that 1 - CDF indeed appears to be an exponential decay.
 
@@ -137,16 +132,15 @@ log(n(t)) &= log(n_0\cdot e^{-\frac{t}{\tau}}) \\
 and the linearized model can be fit to transformed data:
 
 
-{% highlight r %}
+```r
 dt.1.df$log.mcdf <- log(dt.1.df$mcdf)
 linm <- lm(log.mcdf ~ t, data = dt.1.df)
 summary(linm)
-{% endhighlight %}
+```
 
 
 
-{% highlight text %}
-## 
+``` 
 ## Call:
 ## lm(formula = log.mcdf ~ t, data = dt.1.df)
 ## 
@@ -164,7 +158,7 @@ summary(linm)
 ## Residual standard error: 0.0425 on 353 degrees of freedom
 ## Multiple R-squared:  0.999,	Adjusted R-squared:  0.999 
 ## F-statistic: 3.88e+05 on 1 and 353 DF,  p-value: <2e-16
-{% endhighlight %}
+```
 
 results in the expected mean dwell time of 
 `\(\tau = \frac{1}{\lambda} =\)` 98.5474 and
@@ -195,7 +189,7 @@ if the 1 - CDF data was replaced by a fixed, evenly spaced number of linearly
 interpolated data points?
 
 
-{% highlight r %}
+```r
 eq.spaced <- seq(min(dt.1), max(dt.1), by=1)
 df.eq <- data.frame(t=eq.spaced, mcdf=approx(dt.1.u, 1 - dt.1.cdf(dt.1.u), 
                                              xout=eq.spaced)$y)
@@ -203,12 +197,11 @@ df.eq <- subset(df.eq, mcdf > 0)
 df.eq$log.mcdf <- log(df.eq$mcdf)
 linm.i <- lm(log.mcdf ~ t, data = df.eq)
 summary(linm.i)
-{% endhighlight %}
+```
 
 
 
-{% highlight text %}
-## 
+```
 ## Call:
 ## lm(formula = log.mcdf ~ t, data = df.eq)
 ## 
@@ -226,7 +219,7 @@ summary(linm.i)
 ## Residual standard error: 0.294 on 817 degrees of freedom
 ## Multiple R-squared:  0.986,	Adjusted R-squared:  0.986 
 ## F-statistic: 5.79e+04 on 1 and 817 DF,  p-value: <2e-16
-{% endhighlight %}
+```
 
 Figure 4 shows the diagnostic figures for this fit. This certainly didn't 
 help any.
@@ -246,15 +239,14 @@ means that the exponential that we are fitting is
 
 We fit this to the original data using the base R `nls` function
 
-{% highlight r %}
+```r
 expm <- nls(mcdf ~ exp(- l*t), data=dt.1.df, start=list(l=1/5))
 summary(expm)
-{% endhighlight %}
+```
 
 
 
-{% highlight text %}
-## 
+```
 ## Formula: mcdf ~ exp(-l * t)
 ## 
 ## Parameters:
@@ -267,7 +259,7 @@ summary(expm)
 ## 
 ## Number of iterations to convergence: 6 
 ## Achieved convergence tolerance: 2.7e-06
-{% endhighlight %}
+```
 
 Again, the estimate for the mean dwell time of 98.6092 is close
 to the real value of 100.
@@ -294,7 +286,7 @@ with low affinity sites (mean dwell time of 1s, 1800 sites) is simulated using
 a similar process as above
 
 
-{% highlight r %}
+```r
 set.seed(5620)
 sim.2.data <- function() {
   dt.2 <- c()
@@ -320,7 +312,7 @@ dt.2.cdf <- ecdf(dt.2)
 dt.2.df <- data.frame(t = unique(dt.2))
 dt.2.df$mcdf <- 1 - dt.2.cdf(dt.2.df$t)
 dt.2.df <- subset(dt.2.df, mcdf > 0)
-{% endhighlight %}
+```
 
 
 Figure 6 shows the distribution of dwell times and Figure 7 the log plot
@@ -356,17 +348,16 @@ which means that either one of them might end up corresponding to
 the high affinity sites.
 
 
-{% highlight r %}
+```r
 expm.2 <- nls(mcdf ~ f * exp(- l1 * t) + (1 - f) * exp(-l2 * t), 
               data  = dt.2.df, 
               start = list(l1=1/10, l2=1/2, f=0.5))
 summary(expm.2)
-{% endhighlight %}
+```
 
 
 
-{% highlight text %}
-## 
+```
 ## Formula: mcdf ~ f * exp(-l1 * t) + (1 - f) * exp(-l2 * t)
 ## 
 ## Parameters:
@@ -381,7 +372,7 @@ summary(expm.2)
 ## 
 ## Number of iterations to convergence: 9 
 ## Achieved convergence tolerance: 5.46e-07
-{% endhighlight %}
+```
 
 The estimates of the mean dwell time of the high affinity sites 
 (107.903), the low affinity site (10.4662), and the 
@@ -390,17 +381,16 @@ the values used in the data generating process.
 
 Is the two component model significantly better than a single component model?
 
-{% highlight r %}
+```r
 expm.2.single <- nls(mcdf ~ exp(-l * t), 
                      data  = dt.2.df,
                      start = list(l=1/10))
 summary(expm.2.single)
-{% endhighlight %}
+```
 
 
 
-{% highlight text %}
-## 
+```
 ## Formula: mcdf ~ exp(-l * t)
 ## 
 ## Parameters:
@@ -413,17 +403,17 @@ summary(expm.2.single)
 ## 
 ## Number of iterations to convergence: 6 
 ## Achieved convergence tolerance: 3.8e-06
-{% endhighlight %}
+```
 
 
 
-{% highlight r %}
+```r
 anova(expm.2.single, expm.2)
-{% endhighlight %}
+```
 
 
 
-{% highlight text %}
+```
 ## Analysis of Variance Table
 ## 
 ## Model 1: mcdf ~ exp(-l * t)
@@ -433,15 +423,12 @@ anova(expm.2.single, expm.2)
 ## 2    143     0.0016  2  0.129    5799 <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-{% endhighlight %}
+```
 
 Indeed it is. Figure 8 shows the two fitted models with the data.
 
 <figure>
 
-{% highlight text %}
-## Warning: Removed 43 rows containing missing values (geom_path).
-{% endhighlight %}
 
 <img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig8.png" title="plot of chunk 2014-07-22-fig8" alt="plot of chunk 2014-07-22-fig8" style="display: block; margin: auto;" />
 <figcaption><b>Figure 8</b>: Mixture model with `nls` fit of 2 component model 
@@ -456,7 +443,7 @@ How dependent on the starting values are the results of `nls`? To find out,
 at 0.5).
 
 
-{% highlight r %}
+```r
 fit.grid <- local({
   eg <- expand.grid(start.l1=10^seq(-3, 0, length.out=100),
                     start.l2=10^seq(-3, 0, length.out=100))
@@ -481,7 +468,7 @@ fit.grid <- local({
   eg$fit.fha <- ifelse(eg$fit.l1 < eg$fit.l2, eg$fit.f, 1-eg$fit.f)
   eg
 })
-{% endhighlight %}
+```
 
 Figure 9 shows how the inital estimates for the parameters impact which
 of the two rate constants ends up estimating the high affinity sites and
@@ -522,7 +509,7 @@ overestimated (rate constant underestimated), irrespective of
 data set. Despite the obvious bias, the difference is reatively small.
 
 
-{% highlight r %}
+```r
 set.seed(3321999)
 fit.rep <- list()
 for (i in 1:100) {
@@ -539,7 +526,7 @@ for (i in 1:100) {
     fit.rep[[i]] <- fit
   }
 }
-{% endhighlight %}
+```
 
 <figure>
 <img src="http://wresch.github.io/assets/140719_fitting_exp_decay_models/2014-07-22-fig11.png" title="plot of chunk 2014-07-22-fig11" alt="plot of chunk 2014-07-22-fig11" style="display: block; margin: auto;" />
