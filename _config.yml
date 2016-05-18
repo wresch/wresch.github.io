@@ -1,10 +1,7 @@
 name:     "Wolfgang Resch - Notes"
 author:   "Wolfgang Resch"
 
-markdown: redcarpet
 highlighter: pygments
-redcarpet:
-  extenstions: ["tables", "disable_indented_code_blocks"]
 
 gems:
   - jekyll-sitemap
