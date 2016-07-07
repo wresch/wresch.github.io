@@ -2,7 +2,6 @@
 title:  How to model dwell time of proteins on DNA binding sites in R - part 1
 layout: post
 author: Wolfgang Resch
-output: html_document
 ---
 
 
